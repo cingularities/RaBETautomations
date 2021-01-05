@@ -10,7 +10,7 @@ shr_filter <- function(rawdata) {
   allsheets <- rawdata %>%
     excel_sheets() %>% #import as sheets
     set_names() %>% #use sheet names
-    map(read_excel, path = sampledata)%>% #read excel
+    map(read_excel, path = rawdata)%>% #read excel
     map(pivot_longer,cols = -OBSERVATION, names_to = "observation") %>%
     map(pivot_wider, names_from = OBSERVATION, values_from = value)
   topcanopycode <- allsheets$`TOP CANOPY CODES` %>% gather(Point, topcanopycode, -observation)
@@ -23,4 +23,3 @@ shr_filter <- function(rawdata) {
   names(SHR) <- c("location", "topcanopycode" , "plantgrowthform" , "coverbyspecies")
   return(SHR)
 }
-
