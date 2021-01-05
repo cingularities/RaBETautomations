@@ -1,13 +1,19 @@
 Package: RaBETautomations
-Title: What the Package Does (One Line, Title Case)
+Title: RaBET SHR Filtering through excel workbook sheets.
 Version: 1.0
-Authors@R: 
-    person(given = "Cynthia",
-           family = "Norton",
+Authors@R: person(given = "Cynthia", family = "Norton",
            role = c("aut", "cre"),
-           email = "cnorton1@email.arizona.edu",
-           comment = c(ORCID = "YOUR-ORCID-ID"))
+           email = "cnorton1@email.arizona.edu")
 Description: RaBETautomations package contain functions to optimize workflow.
+Import:
+	dplyr,
+	fuzzyjoin,
+	plyr,
+	readr,
+	tidyverse,
+	purrr,
+	readxl,
+	tibble
 License: `use_mit_license()`, `use_gpl3_license()` or friends to
     pick a license
 Encoding: UTF-8
