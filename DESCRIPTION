@@ -5,11 +5,9 @@ Authors@R: person(given = "Cynthia", family = "Norton",
            role = c("aut", "cre"),
            email = "cnorton1@email.arizona.edu")
 Description: RaBETautomations package contain functions to optimize workflow.
-Import:
+Depends:
 	dplyr,
 	fuzzyjoin,
-	plyr,
-	readr,
 	tidyverse,
 	purrr,
 	readxl,
