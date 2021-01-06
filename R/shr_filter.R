@@ -11,15 +11,16 @@ shr_filter <- function(rawdata) {
     excel_sheets() %>% #import as sheets
     set_names() %>% #use sheet names
     map(read_excel, path = rawdata)%>% #read excel
-    map(pivot_longer,cols = -OBSERVATION, names_to = "observation") %>%
-    map(pivot_wider, names_from = OBSERVATION, values_from = value)
-  topcanopycode <- allsheets$`TOP CANOPY CODES` %>% gather(Point, topcanopycode, -observation)
-  plantgrowthform <- allsheets$`PLANT GROWTH FORMS` %>% gather(Point, plantgrowthform, -observation)
-  coverbyspecies <- allsheets$`PCT COVER BY SPECIES` %>% gather(Point, coverbyspecies, -observation)
-  finaldataset <- cbind(topcanopycode,plantgrowthform$plantgrowthform,coverbyspecies$coverbyspecies)
-  SHR <- finaldataset %>%
+    map(pivot_longer,cols = -OBSERVATION, names_to = "observation") %>% # Moving  rows to column, excluding observation and renaming it
+    map(pivot_wider, names_from = OBSERVATION, values_from = value)  #transposing data rows to column
+  topcanopycode <- allsheets$`TOP CANOPY CODES` %>% gather(Point, topcanopycode, -observation) #gathers data each column for topcanopycode and binds them on top of each other
+  plantgrowthform <- allsheets$`PLANT GROWTH FORMS` %>% gather(Point, plantgrowthform, -observation) #gathers data each column for plantgrowthform and binds them on top of each other
+  coverbyspecies <- allsheets$`PCT COVER BY SPECIES` %>% gather(Point, coverbyspecies, -observation) #gathers data each column for coverbyspecies and binds them on top of each other
+  finaldataset <- cbind(topcanopycode,plantgrowthform$plantgrowthform,coverbyspecies$coverbyspecies) #binds location and all three sheets in one sheet
+  SHR <- finaldataset %>% #filters SHR
     filter(`plantgrowthform$plantgrowthform` == "SHR")
-  SHR = SHR[,c(2,3,4,5)]
-  names(SHR) <- c("location", "topcanopycode" , "plantgrowthform" , "coverbyspecies")
+  SHR = SHR[,c(2,3,4,5)] #selects specific columns
+  names(SHR) <- c("location", "topcanopycode" , "plantgrowthform" , "coverbyspecies") #renames columns
   return(SHR)
 }
+
