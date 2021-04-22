@@ -47,7 +47,7 @@ model_MLRA <- function(raw_data) { #filter list and raw data files and runs line
     coefficients_list[[i]] <- model_coefficients #input coefficient to list
     
     # Pull out the MAE
-    predict_MLRA <- MLRA65 %>% add_predictions(linear_model)     #predict raw based on linear model
+    predict_MLRA <- raw_data %>% add_predictions(linear_model)     #predict raw based on linear model
     error_subset<- predict_MLRA[predict_MLRA$HI_RES_ID != A_class, ]#removes samples used in linear model
     error_subset<- error_subset[error_subset$HI_RES_ID != B_class, ]#removes samples used in linear model
     error_estimate <- aggregate(NAIP_WC ~ HI_RES_ID, data = error_subset, FUN = mean) #aggretaes estimate by mean
